@@ -1,0 +1,28 @@
+.slide-container {
+    position: relative;
+    padding: 5px;
+}
+.slide-strip {
+    border: 1px solid #999;
+    height: 10px;
+    margin: 2px;
+
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+}
+.slide-handle {
+    position: absolute;
+    border: 1px solid #999;
+    background: #ccc;
+    height: 14px;
+    width: 14px;
+    left: 0;
+
+    -webkit-border-radius: 7px;
+       -moz-border-radius: 7px;
+            border-radius: 7px;
+}
+.slide-fill {
+    background: #ccf;
+}

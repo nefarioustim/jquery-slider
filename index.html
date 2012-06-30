@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+    <head>
+        <script type="text/javascript">
+            document.documentElement.className += ' js';
+        </script>
+        <meta charset="utf-8">
+        <title>Slider test</title>
+        <link rel="stylesheet" type="text/css" href="assets/css/core.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/slider.css">
+    </head>
+    <!--[if lt IE 7 ]>
+    <body class="ie ie6">
+    <![endif]-->
+    <!--[if IE 7 ]>
+    <body class="ie ie7">
+    <![endif]-->
+    <!--[if IE 8 ]>
+    <body class="ie ie8">
+    <![endif]-->
+    <!--[if IE 9 ]>
+    <body class="ie ie9">
+    <![endif]-->
+    <!--[if gt IE 9]>
+    <body class="ie">
+    <![endif]-->
+    <!--[if !IE]><!-->
+    <body>
+    <!--<![endif]-->
+        <form method="post" action="">
+            <input class="video-seek" type="text" aria-controls="video1">
+        </form>
+        <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+        <script type="text/javascript" src="assets/js/jquery.event.drag.js"></script>
+        <script type="text/javascript" src="assets/js/jquery.slider.js"></script>
+        <script type="text/javascript">
+            $('.video-seek').slider({
+                'value': 21
+            });
+        </script>
+    </body>
+</html>
