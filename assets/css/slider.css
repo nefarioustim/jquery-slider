@@ -2,8 +2,11 @@
     position: relative;
     padding: 5px;
 }
-.slide-strip {
+.slide-strip,
+.slide-handle {
     border: 1px solid #999;
+}
+.slide-strip {
     height: 10px;
     margin: 2px;
 
@@ -13,7 +16,6 @@
 }
 .slide-handle {
     position: absolute;
-    border: 1px solid #999;
     background: #ccc;
     height: 14px;
     width: 14px;
