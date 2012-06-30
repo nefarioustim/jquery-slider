@@ -13,6 +13,11 @@
     -webkit-border-radius: 5px;
        -moz-border-radius: 5px;
             border-radius: 5px;
+
+    background: #ccc; /* for non-css3 browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#aaaaaa', endColorstr='#dddddd');
+    background: -webkit-gradient(linear, left top, left bottom, from(#aaa), to(#ddd));
+    background: -moz-linear-gradient(top,  #aaa,  #ddd);
 }
 .slide-handle {
     position: absolute;
@@ -24,7 +29,15 @@
     -webkit-border-radius: 7px;
        -moz-border-radius: 7px;
             border-radius: 7px;
+
+    background: #ccc; /* for non-css3 browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dddddd', endColorstr='#bbbbbb');
+    background: -webkit-gradient(linear, left top, left bottom, from(#ddd), to(#bbb));
+    background: -moz-linear-gradient(top,  #ddd,  #bbb);
 }
 .slide-fill {
     background: #ccf;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ddddff', endColorstr='#bbbbff');
+    background: -webkit-gradient(linear, left top, left bottom, from(#ddf), to(#bbf));
+    background: -moz-linear-gradient(top,  #ddf,  #bbf);
 }
