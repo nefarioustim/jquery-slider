@@ -29,9 +29,9 @@
                             var y = Math.min(Math.max(x, 0), defaults.max),
                                 position = ~~(
                                     (y / defaults.max) * calculatedWidth
-                                );
+                                ); // ~~ uses bitwise conversion as fast parseInt
 
-                            setPosition(position, ~~x !== y);
+                            setPosition(position, ~~x !== y); // ~~ uses bitwise conversion as fast parseInt
                         },
                         setPosition = function(x, setVal) {
                             if (setVal === undefined) setVal = true; // Avoid falsey-fail
@@ -50,7 +50,7 @@
                                             x / calculatedWidth
                                         ) * defaults.max
                                     )
-                                );
+                                ); // ~~ uses bitwise conversion as fast parseInt
                             }
                         },
                         limitDrag = function(x, limit) {
@@ -62,7 +62,7 @@
                                         x
                                     )
                                 ) - limit.left
-                            );
+                            ); // ~~ uses bitwise conversion as fast parseInt
 
                             setPosition(x);
                         };
