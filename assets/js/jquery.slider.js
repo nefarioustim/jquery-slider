@@ -23,12 +23,15 @@
                         $slideFill = $('.slide-fill', $slideControl),
                         calculatedWidth,
                         setValue = function(x) {
-                            if (x > defaults.max) x = defaults.max;
-                            if (x < 0) x = 0;
-                            x = ~~(
-                                (x / defaults.max) * calculatedWidth
-                            );
-                            setPosition(x, false);
+                            // Use of Math.min/max here to clip a variable
+                            // See the "Clipping a variable" example here:
+                            // https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Math/min
+                            var y = Math.min(Math.max(x, 0), defaults.max),
+                                position = ~~(
+                                    (y / defaults.max) * calculatedWidth
+                                );
+
+                            setPosition(position, ~~x !== y);
                         },
                         setPosition = function(x, setVal) {
                             if (setVal === undefined) setVal = true; // Avoid falsey-fail
@@ -51,9 +54,6 @@
                             }
                         },
                         limitDrag = function(x, limit) {
-                            // Use of Math.min/max here to clip a variable
-                            // See the "Clipping a variable" example here:
-                            // https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Math/min
                             x = ~~(
                                 Math.min(
                                     limit.right,
@@ -100,6 +100,10 @@
 
                     $slideControl.mousedown(function(e) {
                         setPosition(e.offsetX);
+                    });
+
+                    $sliderValue.blur(function(e) {
+                        setValue($sliderValue.val());
                     });
 
                     $sliderValue.val(defaults.value);
