@@ -1,7 +1,12 @@
 jQuery Slider Widget
 ====================
 
-This is a slider widget that progressively enhances a standard text input.
+This is a slider widget that progressively enhances a standard text input. It is intended as an alternative to the massively bloated jQuery UI widget.
+
+It requires [ThreeDubMedia's excellent drag event extension](http://threedubmedia.com/code/event/drag) for jQuery. You can find the source for this in [their jQuery GitHub repo](https://github.com/threedubmedia/jquery.threedubmedia).
+
+License
+-------
 
 <a xmlns:dct="http://purl.org/dc/terms/" href="http://github.com/nefarioustim/jquery-slider" rel="dct:source">jQuery Slider Widget</a>
 
