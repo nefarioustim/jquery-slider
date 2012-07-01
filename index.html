@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en-gb" dir="ltr">
+<html lang="en-gb" dir="ltr" class="no-js">
     <head>
         <script type="text/javascript">
-            document.documentElement.className += ' js';
+            var doc = document.documentElement;
+            doc.className = doc.className.replace(/(\s|^)no-js(\s|$)/ig, '');
         </script>
         <meta charset="utf-8">
         <title>Slider test</title>
