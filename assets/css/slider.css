@@ -25,6 +25,7 @@
     position: absolute;
     background: #ccc;
     color: inherit;
+    cursor: move;
     line-height: 1;
     height: 16px;
     width: 16px;

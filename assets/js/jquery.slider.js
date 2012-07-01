@@ -18,7 +18,7 @@
 
                 this.each(function(){
                     var $sliderValue = $(this),
-                        $slideControl = $('<div class="slide-container"><div class="slide-handle"><span>Slide</span></div><div class="slide-strip"><div class="slide-fill"></div></div></div>'),
+                        $slideControl = $('<div class="slide-container"><a class="slide-handle" href="#"><span>Slide</span></a><div class="slide-strip"><div class="slide-fill"></div></div></div>'),
                         $slideHandle = $('.slide-handle', $slideControl),
                         $slideFill = $('.slide-fill', $slideControl),
                         calculatedWidth,
@@ -77,13 +77,20 @@
 
                     calculatedWidth = $slideControl.outerWidth() - $slideHandle.outerWidth();
 
+                    $slideHandle.bind('click mousedown mouseup', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    });
+
                     $slideHandle
                         .drag('start', function(e, dd) {
+                            e.preventDefault();
                             dd.limit = $slideControl.offset();
                             dd.limit.left = ~~dd.limit.left; // ~~ uses bitwise conversion as fast parseInt
                             dd.limit.right = dd.limit.left + calculatedWidth;
                         })
                         .drag(function(e, dd) {
+                            e.preventDefault();
                             limitDrag(dd.offsetX, dd.limit);
                         });
 
