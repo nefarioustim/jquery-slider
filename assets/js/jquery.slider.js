@@ -18,7 +18,7 @@
 
                 this.each(function(){
                     var $sliderValue = $(this),
-                        $slideControl = $('<div class="slide-container"><a class="slide-handle" href="#"><span>Slide</span></a><div class="slide-strip"><div class="slide-fill"></div></div></div>'),
+                        $slideControl = $('<div class="slide-container"><div class="slide-handle"><span>Slide</span></div><div class="slide-strip"><div class="slide-fill"></div></div></div>'),
                         $slideHandle = $('.slide-handle', $slideControl),
                         $slideFill = $('.slide-fill', $slideControl),
                         calculatedWidth,
@@ -46,25 +46,23 @@
                             if (setVal) {
                                 $sliderValue.val(
                                     ~~(
-                                        (
-                                            x / calculatedWidth
-                                        ) * defaults.max
+                                        (x / calculatedWidth) * defaults.max
                                     )
                                 ); // ~~ uses bitwise conversion as fast parseInt
                             }
                         },
-                        limitDrag = function(x, limit) {
+                        positionInLimit = function(x, limit) {
                             x = ~~(
-                                Math.min(
-                                    limit.right,
-                                    Math.max(
-                                        limit.left,
-                                        x
-                                    )
-                                ) - limit.left
+                                Math.min(limit.right, Math.max(limit.left, x)) - limit.left
                             ); // ~~ uses bitwise conversion as fast parseInt
 
                             setPosition(x);
+                        },
+                        addDragLimit = function(dd) {
+                            dd.limit = $slideControl.offset();
+                            dd.limit.left = ~~dd.limit.left; // ~~ uses bitwise conversion as fast parseInt
+                            dd.limit.right = dd.limit.left + calculatedWidth;
+                            return dd;
                         };
 
                     $sliderValue.after($slideControl);
@@ -77,35 +75,34 @@
 
                     calculatedWidth = $slideControl.outerWidth() - $slideHandle.outerWidth();
 
-                    $slideHandle.bind('click mousedown mouseup', function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                    });
+                    // $slideHandle.bind('click mousedown mousemove mouseup', function(e) {
+                    //     e.preventDefault();
+                    //     e.stopPropagation();
+                    // });
 
                     $slideHandle
                         .drag('start', function(e, dd) {
-                            e.preventDefault();
-                            dd.limit = $slideControl.offset();
-                            dd.limit.left = ~~dd.limit.left; // ~~ uses bitwise conversion as fast parseInt
-                            dd.limit.right = dd.limit.left + calculatedWidth;
+                            dd = addDragLimit(dd);
                         })
                         .drag(function(e, dd) {
-                            e.preventDefault();
-                            limitDrag(dd.offsetX, dd.limit);
+                            positionInLimit(dd.offsetX, dd.limit);
                         });
+
+                    // $slideControl.bind('click mousedown mousemove mouseup', function(e) {
+                    //     e.preventDefault();
+                    //     e.stopPropagation();
+                    // });
 
                     $slideControl
                         .mousedown(function(e) {
                             setPosition(e.offsetX);
                         })
                         .drag('start', function(e, dd) {
-                            dd.limit = $slideControl.offset();
-                            dd.limit.left = ~~dd.limit.left; // ~~ uses bitwise conversion as fast parseInt
-                            dd.limit.right = dd.limit.left + calculatedWidth;
+                            dd = addDragLimit(dd);
                             dd.handle = $slideHandle.offset();
                         })
                         .drag(function(e, dd) {
-                            limitDrag(dd.handle.left + dd.deltaX, dd.limit);
+                            positionInLimit(dd.handle.left + dd.deltaX, dd.limit);
                         });
 
                     $sliderValue.blur(function(e) {
