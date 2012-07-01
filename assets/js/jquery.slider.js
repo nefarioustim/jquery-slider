@@ -18,7 +18,7 @@
 
                 this.each(function(){
                     var $sliderValue = $(this),
-                        $slideControl = $('<div class="slide-container"><div class="slide-handle"></div><div class="slide-strip"><div class="slide-fill"></div></div></div>'),
+                        $slideControl = $('<div class="slide-container"><button type="button" class="slide-handle"><span>Slide</span></button><div class="slide-strip"><div class="slide-fill"></div></div></div>'),
                         $slideHandle = $('.slide-handle', $slideControl),
                         $slideFill = $('.slide-fill', $slideControl),
                         calculatedWidth,

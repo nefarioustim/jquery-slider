@@ -5,6 +5,7 @@
 .slide-strip,
 .slide-handle {
     border: 1px solid #666;
+    padding: 0;
 }
 .slide-strip {
     height: 10px;
@@ -19,11 +20,12 @@
     background: -webkit-gradient(linear, left top, left bottom, from(#aaa), to(#ccc));
     background: -moz-linear-gradient(top,  #aaa,  #ccc);
 }
-.slide-handle {
+button.slide-handle {
     position: absolute;
     background: #ccc;
-    height: 14px;
-    width: 14px;
+    color: inherit;
+    height: 16px;
+    width: 16px;
     left: 0;
 
     -webkit-border-radius: 7px;
@@ -34,6 +36,11 @@
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#cccccc');
     background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ccc));
     background: -moz-linear-gradient(top,  #fff,  #ccc);
+}
+button.slide-handle span {
+    visibility: hidden;
+    position: absolute;
+    left: -9999em;
 }
 .slide-fill {
     background: #1d9bd4;
