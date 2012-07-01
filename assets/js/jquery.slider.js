@@ -18,7 +18,7 @@
 
                 this.each(function(){
                     var $sliderValue = $(this),
-                        $slideControl = $('<div class="slide-container"><button type="button" class="slide-handle"><span>Slide</span></button><div class="slide-strip"><div class="slide-fill"></div></div></div>'),
+                        $slideControl = $('<div class="slide-container"><div class="slide-handle"><span>Slide</span></div><div class="slide-strip"><div class="slide-fill"></div></div></div>'),
                         $slideHandle = $('.slide-handle', $slideControl),
                         $slideFill = $('.slide-fill', $slideControl),
                         calculatedWidth,
@@ -78,7 +78,7 @@
                     calculatedWidth = $slideControl.outerWidth() - $slideHandle.outerWidth();
 
                     $slideHandle
-                        .drag('start', function dragStart(e, dd) {
+                        .drag('start', function(e, dd) {
                             dd.limit = $slideControl.offset();
                             dd.limit.left = ~~dd.limit.left; // ~~ uses bitwise conversion as fast parseInt
                             dd.limit.right = dd.limit.left + calculatedWidth;
@@ -88,7 +88,10 @@
                         });
 
                     $slideControl
-                        .drag('start', function dragStart(e, dd) {
+                        .mousedown(function(e) {
+                            setPosition(e.offsetX);
+                        })
+                        .drag('start', function(e, dd) {
                             dd.limit = $slideControl.offset();
                             dd.limit.left = ~~dd.limit.left; // ~~ uses bitwise conversion as fast parseInt
                             dd.limit.right = dd.limit.left + calculatedWidth;
@@ -97,10 +100,6 @@
                         .drag(function(e, dd) {
                             limitDrag(dd.handle.left + dd.deltaX, dd.limit);
                         });
-
-                    $slideControl.mousedown(function(e) {
-                        setPosition(e.offsetX);
-                    });
 
                     $sliderValue.blur(function(e) {
                         setValue($sliderValue.val());

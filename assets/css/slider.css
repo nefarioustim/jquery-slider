@@ -20,10 +20,12 @@
     background: -webkit-gradient(linear, left top, left bottom, from(#aaa), to(#ccc));
     background: -moz-linear-gradient(top,  #aaa,  #ccc);
 }
-button.slide-handle {
+.slide-container .slide-handle {
+    box-sizing: border-box;
     position: absolute;
     background: #ccc;
     color: inherit;
+    line-height: 1;
     height: 16px;
     width: 16px;
     left: 0;
@@ -37,7 +39,7 @@ button.slide-handle {
     background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ccc));
     background: -moz-linear-gradient(top,  #fff,  #ccc);
 }
-button.slide-handle span {
+.slide-container .slide-handle span {
     visibility: hidden;
     position: absolute;
     left: -9999em;
