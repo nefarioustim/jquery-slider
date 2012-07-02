@@ -9,18 +9,20 @@
                 alert(msg);
             }
         },
+        defaults = {},
         methods = {
             init: function(options) {
-                var defaults = $.extend({
+                defaults = $.extend({
                     'max': 100,
                     'value': 0
                 }, options);
 
                 this.each(function(){
                     var $sliderValue = $(this),
-                        $slideControl = $('<div class="slide-container"><div class="slide-handle"><span>Slide</span></div><div class="slide-strip"><div class="slide-fill"></div></div></div>'),
-                        $slideHandle = $('.slide-handle', $slideControl),
-                        $slideFill = $('.slide-fill', $slideControl),
+                        $slider = $('<div class="slider" />'),
+                        $sliderControl = $('<div class="slider-container"><div class="slider-handle"><span>Slide</span></div><div class="slider-strip"><div class="slider-fill"></div></div></div>'),
+                        $sliderHandle = $('.slider-handle', $sliderControl),
+                        $sliderFill = $('.slider-fill', $sliderControl),
                         calculatedWidth,
                         setValue = function(x) {
                             // Use of Math.min/max here to clip a variable
@@ -36,10 +38,10 @@
                         setPosition = function(x, setVal) {
                             if (setVal === undefined) setVal = true; // Avoid falsey-fail
 
-                            $slideHandle.css({
+                            $sliderHandle.css({
                                 left: x
                             });
-                            $slideFill.css({
+                            $sliderFill.css({
                                 width: x
                             });
 
@@ -59,28 +61,31 @@
                             setPosition(x);
                         },
                         addDragLimit = function(dd) {
-                            dd.limit = $slideControl.offset();
+                            dd.limit = $sliderControl.offset();
                             dd.limit.left = ~~dd.limit.left; // ~~ uses bitwise conversion as fast parseInt
                             dd.limit.right = dd.limit.left + calculatedWidth;
                             return dd;
                         };
 
-                    $sliderValue.after($slideControl);
-                    //$sliderValue.prop('type', 'hidden');
+                    $sliderValue
+                        //.prop('type', 'hidden');
+                        .after($sliderControl)
+                        .add($sliderControl)
+                        .wrapAll($slider);
 
-                    $slideFill.css({
+                    $sliderFill.css({
                         height: '100%',
                         width: 0
                     });
 
-                    calculatedWidth = $slideControl.outerWidth() - $slideHandle.outerWidth();
+                    calculatedWidth = $sliderControl.outerWidth() - $sliderHandle.outerWidth();
 
-                    // $slideHandle.bind('click mousedown mousemove mouseup', function(e) {
+                    // $sliderHandle.bind('click mousedown mousemove mouseup', function(e) {
                     //     e.preventDefault();
                     //     e.stopPropagation();
                     // });
 
-                    $slideHandle
+                    $sliderHandle
                         .drag('start', function(e, dd) {
                             dd = addDragLimit(dd);
                         })
@@ -88,18 +93,18 @@
                             positionInLimit(dd.offsetX, dd.limit);
                         });
 
-                    // $slideControl.bind('click mousedown mousemove mouseup', function(e) {
+                    // $sliderControl.bind('click mousedown mousemove mouseup', function(e) {
                     //     e.preventDefault();
                     //     e.stopPropagation();
                     // });
 
-                    $slideControl
+                    $sliderControl
                         .mousedown(function(e) {
                             setPosition(e.offsetX);
                         })
                         .drag('start', function(e, dd) {
                             dd = addDragLimit(dd);
-                            dd.handle = $slideHandle.offset();
+                            dd.handle = $sliderHandle.offset();
                         })
                         .drag(function(e, dd) {
                             positionInLimit(dd.handle.left + dd.deltaX, dd.limit);
