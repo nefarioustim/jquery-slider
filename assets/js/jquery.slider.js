@@ -11,6 +11,11 @@
         },
         defaults = {},
         methods = {
+            confinePositionToLimit: function(x, limit) {
+                return ~~(
+                    Math.min(limit.right, Math.max(limit.left, x)) - limit.left
+                ); // ~~ uses bitwise conversion as fast parseInt
+            },
             init: function(options) {
                 defaults = $.extend({
                     'max': 100,
@@ -54,11 +59,9 @@
                             }
                         },
                         positionInLimit = function(x, limit) {
-                            x = ~~(
-                                Math.min(limit.right, Math.max(limit.left, x)) - limit.left
-                            ); // ~~ uses bitwise conversion as fast parseInt
-
-                            setPosition(x);
+                            setPosition(
+                                methods.confinePositionToLimit(x, limit)
+                            );
                         },
                         addDragLimit = function(dd) {
                             dd.limit = $sliderControl.offset();

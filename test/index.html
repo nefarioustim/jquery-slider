@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>QUnit basic example</title>
+        <link rel="stylesheet" href="qunit/qunit.css">
+        <link rel="stylesheet" href="../assets/css/slider.css">
+    </head>
+    <body>
+        <div id="qunit"></div>
+        <div id="qunit-fixture">
+            <form method="post" action="">
+                <input class="video-seek" type="text" aria-controls="video1">
+            </form>
+        </div>
+        <script src="qunit/qunit.js"></script>
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/jquery.event.drag.js"></script>
+        <script src="../assets/js/jquery.slider.js"></script>
+        <script>
+            (function() {
+                // Declare some variables for reuse with test modules
+                var $slider,
+                    sliderClass = '.video-seek';
+
+                module('Integration: Test created widget', {
+                    setup: function() {
+                        // Setup default slider for the following tests
+                        $slider = $(sliderClass).slider();
+                    }
+                });
+                test('Validate markup', function() {
+                    deepEqual($(".slider").length, 1, "Slider wrapper exists.");
+                    deepEqual($(".slider-container").length, 1, "Slider container exists.");
+                    deepEqual($(sliderClass + " + .slider-container").length, 1, "Slider container is directly after the original text box.")
+                    deepEqual($(".slider-handle").length, 1, "Slider handle exists.");
+                    deepEqual($(".slider-strip").length, 1, "Slider strip exists.");
+                    deepEqual($(".slider-fill").length, 1, "Slider fill exists.");
+                    deepEqual($(".slider-strip .slider-fill").length, 1, "Slider fill is within the slider strip.");
+                });
+                test('Drag slider handle', function() {
+                    var evDragStart = $.Event('dragstart'),
+                        evDrag = $.Event('drag'),
+                        $sliderHandle = $(".slider-handle"),
+                        dd = {},
+                        dragX = [25, 500, -123, 4, 300, -500];
+
+                    $.each(dragX, function(i, val){
+                        dd.offsetX = evDrag.offsetX = val;
+                        dd.offsetY = evDrag.offsetY = 5;
+
+                        $sliderHandle.trigger(evDragStart, dd);
+                        $sliderHandle.trigger(evDrag, dd);
+
+                        deepEqual(
+                            parseInt($sliderHandle.css('left'), 10),
+                            $slider.slider('confinePositionToLimit', val, dd.limit),
+                            "Slider handle in correct position when dragged " + val
+                        );
+                    });
+                });
+                test('Click slider strip', function() {
+                    var ev = $.Event('mousedown'),
+                        posX = [370, 23, 500, 152, 290, 874];
+
+                    $.each(posX, function(i, val){
+                        ev.offsetX = val;
+                        ev.offsetY = 5;
+
+                        $(".slider-strip").trigger(ev);
+
+                        deepEqual($(".slider-handle").position().left, val, "Slider handle in correct position when clicked at " + val);
+                        deepEqual(parseInt($(".slider-fill").css('width')), val, "Slider fill is correct width when clicked at " + val);
+                    });
+                });
+            })();
+        </script>
+    </body>
+</html>
