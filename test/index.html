@@ -75,17 +75,25 @@
                     });
                 });
                 test('Click slider strip', function() {
-                    var ev = $.Event('mousedown'),
-                        posX = [370, 23, 500, 152, 290, 874];
+                    var sliderHandleLeft, sliderFillWidth,
+                        ev = $.Event('mousedown'),
+                        $sliderHandle = $(".slider-handle"),
+                        $sliderFill = $(".slider-fill"),
+                        testValues = [370, 23, 500, 152, 290, 874];
 
-                    $.each(posX, function(i, val){
+                    $.each(testValues, function(i, val){
                         ev.offsetX = val;
                         ev.offsetY = 5;
 
                         $(".slider-strip").trigger(ev);
 
-                        deepEqual($(".slider-handle").position().left, val, "Slider handle in correct position when clicked at " + val);
-                        deepEqual(parseInt($(".slider-fill").css('width')), val, "Slider fill is correct width when clicked at " + val);
+                        sliderHandleLeft = parseInt($sliderHandle.css('left'), 10);
+                        sliderFillWidth = parseInt($sliderFill.css('width'), 10);
+
+                        deepEqual(sliderHandleLeft, val,
+                            "Slider handle in correct position when clicked at " + val);
+                        deepEqual(sliderFillWidth, val,
+                            "Slider fill is correct width when clicked at " + val);
                     });
                 });
             })();
