@@ -11,10 +11,18 @@
         },
         defaults = {},
         methods = {
+            getLimitObject: function($container, $handle) {
+                return {
+                    left: 0,
+                    right: $container.outerWidth() - $handle.outerWidth()
+                };
+            },
             confinePositionToLimit: function(x, limit) {
-                return ~~(
-                    Math.min(limit.right, Math.max(limit.left, x)) - limit.left
+                x = ~~(
+                    Math.min(limit.right - limit.left, Math.max(0, x))
                 ); // ~~ uses bitwise conversion as fast parseInt
+
+                return x;
             },
             init: function(options) {
                 defaults = $.extend({
@@ -62,12 +70,6 @@
                             setPosition(
                                 methods.confinePositionToLimit(x, limit)
                             );
-                        },
-                        addDragLimit = function(dd) {
-                            dd.limit = $sliderControl.offset();
-                            dd.limit.left = ~~dd.limit.left; // ~~ uses bitwise conversion as fast parseInt
-                            dd.limit.right = dd.limit.left + calculatedWidth;
-                            return dd;
                         };
 
                     $sliderValue
@@ -90,7 +92,8 @@
 
                     $sliderHandle
                         .drag('start', function(e, dd) {
-                            dd = addDragLimit(dd);
+                            dd.limit = methods.getLimitObject($sliderControl, $sliderHandle);
+                            // debug(dd.limit.left, dd.limit.right);
                         })
                         .drag(function(e, dd) {
                             positionInLimit(dd.offsetX, dd.limit);
