@@ -83,10 +83,10 @@
                     calculatedWidth = $sliderControl.outerWidth() - $sliderHandle.outerWidth();
 
                     $sliderHandle
-                        .drag('start', function(e, dd) {
+                        .on('dragstart', function(e, dd) {
                             dd.limit = methods.getLimitObject($sliderControl, $sliderHandle);
                         })
-                        .drag(function(e, dd) {
+                        .on('drag', function(e, dd) {
                             setPosition(
                                 methods.confinePositionToLimit(
                                     dd.offsetX - $sliderControl.offset().left,
@@ -96,14 +96,14 @@
                         });
 
                     $sliderControl
-                        .mousedown(function(e) {
+                        .on('mousedown', function(e) {
                             setPosition(e.offsetX);
                         })
-                        .drag('start', function(e, dd) {
+                        .on('dragstart', function(e, dd) {
                             dd.limit = methods.getLimitObject($sliderControl, $sliderHandle);
                             dd.handle = $sliderHandle.offset();
                         })
-                        .drag(function(e, dd) {
+                        .on('drag', function(e, dd) {
                             setPosition(
                                 methods.confinePositionToLimit(
                                     dd.handle.left + dd.deltaX - $sliderControl.offset().left,
@@ -111,10 +111,6 @@
                                 )
                             );
                         });
-
-                    $sliderValue.blur(function(e) {
-                        setValue($sliderValue.val());
-                    });
 
                     $sliderValue.val(defaults.value);
                     setValue($sliderValue.val());
