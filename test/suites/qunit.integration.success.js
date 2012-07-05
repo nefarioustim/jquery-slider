@@ -45,6 +45,8 @@
             dd.offsetX = evDrag.offsetX = position;
             dd.offsetY = evDrag.offsetY = 5;
 
+            dd.offsetX += $sliderContainer.offset().left;
+
             $sliderHandle.trigger(evDragStart, dd);
             $sliderHandle.trigger(evDrag, dd);
             $sliderHandle.trigger(evDragStop, dd);

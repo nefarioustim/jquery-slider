@@ -19,7 +19,7 @@
             },
             confinePositionToLimit: function(x, limit) {
                 x = ~~(
-                    Math.min(limit.right - limit.left, Math.max(0, x))
+                    Math.min(limit.right, Math.max(limit.left, x))
                 ); // ~~ uses bitwise conversion as fast parseInt
 
                 return x;
@@ -93,10 +93,9 @@
                     $sliderHandle
                         .drag('start', function(e, dd) {
                             dd.limit = methods.getLimitObject($sliderControl, $sliderHandle);
-                            // debug(dd.limit.left, dd.limit.right);
                         })
                         .drag(function(e, dd) {
-                            positionInLimit(dd.offsetX, dd.limit);
+                            positionInLimit(dd.offsetX - $sliderControl.offset().left, dd.limit);
                         });
 
                     // $sliderControl.bind('click mousedown mousemove mouseup', function(e) {
