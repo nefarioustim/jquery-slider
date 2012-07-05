@@ -88,7 +88,10 @@
                         })
                         .drag(function(e, dd) {
                             setPosition(
-                                methods.confinePositionToLimit(dd.offsetX - $sliderControl.offset().left, dd.limit)
+                                methods.confinePositionToLimit(
+                                    dd.offsetX - $sliderControl.offset().left,
+                                    dd.limit
+                                )
                             );
                         });
 
@@ -102,7 +105,10 @@
                         })
                         .drag(function(e, dd) {
                             setPosition(
-                                methods.confinePositionToLimit(dd.handle.left + dd.deltaX, dd.limit)
+                                methods.confinePositionToLimit(
+                                    dd.handle.left + dd.deltaX - $sliderControl.offset().left,
+                                    dd.limit
+                                )
                             );
                         });
 
