@@ -86,9 +86,43 @@
                 "Slider fill is correct width when clicked at " + val);
         });
     });
-    // test('Drag on slider strip', function() {
-    //     var $sliderStrip = $(".slider-strip"),
-    //         $sliderHandle = $(".slider-handle"),
-    //         $sliderFill = $(".slider-handle");
-    // });
+    test('Drag on slider strip', function() {
+        var sliderHandleLeft, expectedHandleLeft,
+            sliderFillWidth, expectedFillWidth,
+            evDragStart = $.Event('dragstart'),
+            evDrag = $.Event('drag'),
+            evDragStop = $.Event('dragstop'),
+            $sliderContainer = $(".slider-container"),
+            $sliderHandle = $(".slider-handle"),
+            $sliderFill = $(".slider-fill"),
+            limit = $slider.slider('getLimitObject', $sliderContainer, $sliderHandle),
+            testPositionPercentage = [0, 33, 50, 25, 75, 100, 99, 98, 97];
+
+        $.each(testPositionPercentage, function(i, perc) {
+            var dd = {},
+                position = ~~((limit.right / 100) * perc);
+
+            dd.deltaX = evDrag.offsetX = position;
+            evDrag.offsetY = 5;
+
+            dd.deltaX += $sliderContainer.offset().left - $sliderHandle.offset().left;
+            dd.deltaY = 0;
+
+            $sliderContainer.trigger(evDragStart, dd);
+            $sliderContainer.trigger(evDrag, dd);
+            $sliderContainer.trigger(evDragStop, dd);
+
+            sliderFillWidth = parseInt($sliderFill.css('width'), 10);
+            expectedFillWidth = position;
+            sliderHandleLeft = parseInt($sliderHandle.css('left'), 10);
+            expectedHandleLeft = position;
+
+            deepEqual(sliderHandleLeft, expectedHandleLeft,
+                "Slider handle in correct position when dragged to " + perc + "%"
+            );
+            deepEqual(sliderFillWidth, expectedFillWidth,
+                "Slider fill is correct width when dragged to " + perc + "%"
+            );
+        });
+    });
 })();
