@@ -27,7 +27,8 @@
             init: function(options) {
                 defaults = $.extend({
                     'max': 100,
-                    'value': 0
+                    'value': 0,
+                    'hideInput': false
                 }, options);
 
                 this.each(function(){
@@ -65,18 +66,14 @@
                                     )
                                 ); // ~~ uses bitwise conversion as fast parseInt
                             }
-                        },
-                        positionInLimit = function(x, limit) {
-                            setPosition(
-                                methods.confinePositionToLimit(x, limit)
-                            );
                         };
 
                     $sliderValue
-                        //.prop('type', 'hidden');
                         .after($sliderControl)
                         .add($sliderControl)
                         .wrapAll($slider);
+
+                    if (defaults.hideInput) $sliderValue.prop('type', 'hidden');
 
                     $sliderFill.css({
                         height: '100%',
@@ -85,34 +82,28 @@
 
                     calculatedWidth = $sliderControl.outerWidth() - $sliderHandle.outerWidth();
 
-                    // $sliderHandle.bind('click mousedown mousemove mouseup', function(e) {
-                    //     e.preventDefault();
-                    //     e.stopPropagation();
-                    // });
-
                     $sliderHandle
                         .drag('start', function(e, dd) {
                             dd.limit = methods.getLimitObject($sliderControl, $sliderHandle);
                         })
                         .drag(function(e, dd) {
-                            positionInLimit(dd.offsetX - $sliderControl.offset().left, dd.limit);
+                            setPosition(
+                                methods.confinePositionToLimit(dd.offsetX - $sliderControl.offset().left, dd.limit)
+                            );
                         });
-
-                    // $sliderControl.bind('click mousedown mousemove mouseup', function(e) {
-                    //     e.preventDefault();
-                    //     e.stopPropagation();
-                    // });
 
                     $sliderControl
                         .mousedown(function(e) {
                             setPosition(e.offsetX);
                         })
                         .drag('start', function(e, dd) {
-                            dd = addDragLimit(dd);
+                            dd.limit = methods.getLimitObject($sliderControl, $sliderHandle);
                             dd.handle = $sliderHandle.offset();
                         })
                         .drag(function(e, dd) {
-                            positionInLimit(dd.handle.left + dd.deltaX, dd.limit);
+                            setPosition(
+                                methods.confinePositionToLimit(dd.handle.left + dd.deltaX, dd.limit)
+                            );
                         });
 
                     $sliderValue.blur(function(e) {
