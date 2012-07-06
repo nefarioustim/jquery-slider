@@ -36,6 +36,26 @@
             "limit.right is "+expectedRight+" as expected"
         );
     });
+    test('confinePositionToLimit', function() {
+        var $sliderContainer = $('.slider-container'),
+            $sliderHandle = $('.slider-handle'),
+            limit = $slider.slider('getLimitObject', $sliderContainer, $sliderHandle),
+            values = [
+                { value: limit.left, expected: limit.left },
+                { value: limit.right, expected: limit.right },
+                { value: limit.left - 25, expected: limit.left },
+                { value: limit.right + 25, expected: limit.right },
+                { value: ~~((limit.left + limit.right) / 2), expected: ~~((limit.left + limit.right) / 2) }
+            ];
+
+        $.each(values, function(i, val) {
+            deepEqual(
+                $slider.slider('confinePositionToLimit', val.value, limit),
+                val.expected,
+                "Returns " + val.expected + " when passed " + val.value
+            );
+        });
+    });
     // test('setPosition', function() {
     //     var $sliderHandle = $('.slider-handle'),
     //         $sliderFill = $('.slider-fill'),

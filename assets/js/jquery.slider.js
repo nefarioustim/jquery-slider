@@ -18,11 +18,7 @@
                 };
             },
             confinePositionToLimit: function(x, limit) {
-                x = ~~(
-                    Math.min(limit.right, Math.max(limit.left, x))
-                ); // ~~ uses bitwise conversion as fast parseInt
-
-                return x;
+                return Math.min(limit.right, Math.max(limit.left, x));
             },
             setValue: function(value) {
 
