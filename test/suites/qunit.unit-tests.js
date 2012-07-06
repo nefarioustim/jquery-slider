@@ -45,7 +45,7 @@
                 { value: limit.right, expected: limit.right },
                 { value: limit.left - 25, expected: limit.left },
                 { value: limit.right + 25, expected: limit.right },
-                { value: ~~((limit.left + limit.right) / 2), expected: ~~((limit.left + limit.right) / 2) }
+                { value: parseInt((limit.left + limit.right) / 2, 10), expected: parseInt((limit.left + limit.right) / 2, 10) }
             ];
 
         $.each(values, function(i, val) {

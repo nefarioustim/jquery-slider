@@ -39,10 +39,11 @@
 
                     if (setVal) {
                         $sliderValue.val(
-                            ~~(
-                                (position / $sliderContainer.outerWidth() - $sliderHandle.outerWidth()) * defaults.max
+                            parseInt(
+                                (position / ($sliderContainer.outerWidth() - $sliderHandle.outerWidth())) * defaults.max,
+                                10
                             )
-                        ); // ~~ uses bitwise conversion as fast parseInt
+                        );
                     }
                 });
 
@@ -57,11 +58,12 @@
                         // See the "Clipping a variable" example here:
                         // https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Math/min
                         y = Math.min(Math.max(x, 0), defaults.max),
-                        position = ~~(
-                            (y / defaults.max) * ($sliderContainer.outerWidth() - $sliderHandle.outerWidth())
-                        ); // ~~ uses bitwise conversion as fast parseInt
+                        position = parseInt(
+                            (y / defaults.max) * ($sliderContainer.outerWidth() - $sliderHandle.outerWidth()),
+                            10
+                        );
 
-                    $slider.slider('setPosition', position, ~~x !== y); // ~~ uses bitwise conversion as fast parseInt
+                    $slider.slider('setPosition', position, parseInt(x, 10) !== y);
                 });
 
                 return this;
