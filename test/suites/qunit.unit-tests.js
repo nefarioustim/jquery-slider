@@ -3,13 +3,13 @@
     var $slider,
         sliderClass = '.video-seek';
 
-    module('Unit: Success states', {
+    module('Unit tests on exposed functions', {
         setup: function() {
             // Setup default slider for the following tests
             $slider = $(sliderClass).slider();
         }
     });
-    test('getLimitObject', function() {
+    test('getLimitObject success', function() {
         var $sliderContainer = $('.slider-container'),
             $sliderHandle = $('.slider-handle'),
             expectedLeft = 0,
@@ -36,7 +36,7 @@
             "limit.right is "+expectedRight+" as expected"
         );
     });
-    test('confinePositionToLimit', function() {
+    test('confinePositionToLimit success', function() {
         var $sliderContainer = $('.slider-container'),
             $sliderHandle = $('.slider-handle'),
             limit = $slider.slider('getLimitObject', $sliderContainer, $sliderHandle),
@@ -56,23 +56,23 @@
             );
         });
     });
-    // test('setPosition', function() {
-    //     var $sliderHandle = $('.slider-handle'),
-    //         $sliderFill = $('.slider-fill'),
-    //         val = 20;
+    test('setPosition success without setting value', function() {
+        var $sliderHandle = $('.slider-handle'),
+            $sliderFill = $('.slider-fill'),
+            val = 20;
 
-    //     $slider.slider('setPosition', val);
+        $slider.slider('setPosition', val);
 
-    //     sliderFillWidth = parseInt($sliderFill.css('width'), 10);
-    //     expectedFillWidth = position;
-    //     sliderHandleLeft = parseInt($sliderHandle.css('left'), 10);
-    //     expectedHandleLeft = position;
+        sliderFillWidth = parseInt($sliderFill.css('width'), 10);
+        expectedFillWidth = 20;
+        sliderHandleLeft = parseInt($sliderHandle.css('left'), 10);
+        expectedHandleLeft = 20;
 
-    //     deepEqual(sliderHandleLeft, expectedHandleLeft,
-    //         "Slider handle in correct position when setPosition passed " + val
-    //     );
-    //     deepEqual(sliderFillWidth, expectedFillWidth,
-    //         "Slider fill is correct width when setPosition passed " + val
-    //     );
-    // });
+        deepEqual(sliderHandleLeft, expectedHandleLeft,
+            "Slider handle in correct position when setPosition passed " + val
+        );
+        deepEqual(sliderFillWidth, expectedFillWidth,
+            "Slider fill is correct width when setPosition passed " + val
+        );
+    });
 })();
