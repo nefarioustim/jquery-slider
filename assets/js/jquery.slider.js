@@ -24,6 +24,12 @@
 
                 return x;
             },
+            setValue: function(value) {
+
+            },
+            setPosition: function(position, setVal) {
+
+            },
             init: function(options) {
                 defaults = $.extend({
                     'max': 100,
