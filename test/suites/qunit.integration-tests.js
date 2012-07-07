@@ -67,7 +67,9 @@
                 "Slider fill is correct width when dragged to " + perc + "%"
             );
             deepEqual($sliderValue.val(), expectedValue.toString(),
-                "Slider value is correct when dragged to " + perc + "%"
+                "Slider value is " +
+                expectedValue.toString() +
+                " (correct) when dragged to " + perc + "%"
             );
         });
     });
@@ -98,7 +100,10 @@
             deepEqual(sliderFillWidth, val,
                 "Slider fill is correct width when clicked at " + val);
             deepEqual($sliderValue.val(), expectedValue.toString(),
-                "Slider value is correct when when clicked at " + val);
+                "Slider value is " +
+                expectedValue.toString() +
+                " (correct) when when clicked at " + val
+            );
         });
     });
     test('Drag on slider strip', function() {
@@ -144,7 +149,9 @@
                 "Slider fill is correct width when dragged to " + perc + "%"
             );
             deepEqual($sliderValue.val(), expectedValue.toString(),
-                "Slider value is correct when dragged to " + perc + "%"
+                "Slider value is " +
+                expectedValue.toString() +
+                " (correct) when dragged to " + perc + "%"
             );
         });
     });

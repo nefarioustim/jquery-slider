@@ -64,15 +64,44 @@
         $slider.slider('setPosition', val);
 
         sliderFillWidth = parseInt($sliderFill.css('width'), 10);
-        expectedFillWidth = 20;
+        expectedFillWidth = val;
         sliderHandleLeft = parseInt($sliderHandle.css('left'), 10);
-        expectedHandleLeft = 20;
+        expectedHandleLeft = val;
 
         deepEqual(sliderHandleLeft, expectedHandleLeft,
             "Slider handle in correct position when setPosition passed " + val
         );
         deepEqual(sliderFillWidth, expectedFillWidth,
             "Slider fill is correct width when setPosition passed " + val
+        );
+    });
+    test('setPosition success and set value', function() {
+        var $sliderContainer = $(".slider-container"),
+            $sliderHandle = $('.slider-handle'),
+            $sliderFill = $('.slider-fill'),
+            $sliderValue = $(".video-seek"),
+            width = $sliderContainer.outerWidth() - $sliderHandle.outerWidth(),
+            val = 20;
+
+        $slider.slider('setPosition', val, true);
+
+        sliderFillWidth = parseInt($sliderFill.css('width'), 10);
+        expectedFillWidth = val;
+        sliderHandleLeft = parseInt($sliderHandle.css('left'), 10);
+        expectedHandleLeft = val;
+
+        expectedValue = parseInt((val / width) * 100, 10);
+
+        deepEqual(sliderHandleLeft, expectedHandleLeft,
+            "Slider handle in correct position when setPosition passed " + val
+        );
+        deepEqual(sliderFillWidth, expectedFillWidth,
+            "Slider fill is correct width when setPosition passed " + val
+        );
+        deepEqual($sliderValue.val(), expectedValue.toString(),
+            "Slider value is " +
+            expectedValue.toString() +
+            " (correct) when when clicked at " + val
         );
     });
 })();
