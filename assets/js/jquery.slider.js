@@ -73,6 +73,11 @@
                 return this;
             },
             init: function(options) {
+                var $slider = $('<div class="slider" />'),
+                    $sliderControl = $('<div class="slider-container"><div class="slider-handle"><span>Slide</span></div><div class="slider-strip"><div class="slider-fill"></div></div></div>'),
+                    $sliderHandle = $('.slider-handle', $sliderControl),
+                    $sliderFill = $('.slider-fill', $sliderControl);
+
                 defaults = $.extend({
                     'max': 100,
                     'value': 0,
@@ -84,10 +89,6 @@
 
                 this.each(function(){
                     var $sliderValue = $(this),
-                        $slider = $('<div class="slider" />'),
-                        $sliderControl = $('<div class="slider-container"><div class="slider-handle"><span>Slide</span></div><div class="slider-strip"><div class="slider-fill"></div></div></div>'),
-                        $sliderHandle = $('.slider-handle', $sliderControl),
-                        $sliderFill = $('.slider-fill', $sliderControl),
                         calculatedWidth;
 
                     $sliderValue
