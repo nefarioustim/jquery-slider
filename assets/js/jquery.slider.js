@@ -128,6 +128,9 @@
                         .on('mousedown', function(e) {
                             $slider.slider('setPosition', e.offsetX);
                         })
+                        .on('mouseup', function(e) {
+                            $slider.trigger('stop');
+                        })
                         .on('dragstart', function(e, dd) {
                             $slider.trigger('start');
                             dd.limit = $slider.slider('getLimitObject', $sliderControl, $sliderHandle);
