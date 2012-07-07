@@ -105,15 +105,20 @@
 
                     $sliderHandle
                         .on('dragstart', function(e, dd) {
+                            $slider.trigger('start');
                             dd.limit = $slider.slider('getLimitObject', $sliderControl, $sliderHandle);
                         })
                         .on('drag', function(e, dd) {
+                            $slider.trigger('slide');
                             $slider.slider('setPosition',
                                 $slider.slider('confinePositionToLimit',
                                     dd.offsetX - $sliderControl.offset().left,
                                     dd.limit
                                 )
                             );
+                        })
+                        .on('dragend', function(e, dd) {
+                            $slider.trigger('stop');
                         });
 
                     $sliderControl
@@ -121,16 +126,21 @@
                             $slider.slider('setPosition', e.offsetX);
                         })
                         .on('dragstart', function(e, dd) {
+                            $slider.trigger('start');
                             dd.limit = $slider.slider('getLimitObject', $sliderControl, $sliderHandle);
                             dd.handle = $sliderHandle.offset();
                         })
                         .on('drag', function(e, dd) {
+                            $slider.trigger('slide');
                             $slider.slider('setPosition',
                                 $slider.slider('confinePositionToLimit',
                                     dd.handle.left + dd.deltaX - $sliderControl.offset().left,
                                     dd.limit
                                 )
                             );
+                        })
+                        .on('dragend', function(e, dd) {
+                            $slider.trigger('stop');
                         });
 
                     $sliderValue.val(defaults.value);
