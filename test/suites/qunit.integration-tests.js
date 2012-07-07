@@ -35,6 +35,8 @@
             $sliderContainer = $(".slider-container"),
             $sliderHandle = $(".slider-handle"),
             $sliderFill = $(".slider-fill"),
+            $sliderValue = $(".video-seek"),
+            width = $sliderContainer.outerWidth() - $sliderHandle.outerWidth(),
             limit = $slider.slider('getLimitObject', $sliderContainer, $sliderHandle),
             testPositionPercentage = [0, 33, 50, 25, 75, 100, 99, 98, 97];
 
@@ -56,19 +58,28 @@
             sliderHandleLeft = parseInt($sliderHandle.css('left'), 10);
             expectedHandleLeft = position;
 
+            expectedValue = parseInt((position / width) * 100, 10);
+
             deepEqual(sliderHandleLeft, expectedHandleLeft,
                 "Slider handle in correct position when dragged to " + perc + "%"
             );
             deepEqual(sliderFillWidth, expectedFillWidth,
                 "Slider fill is correct width when dragged to " + perc + "%"
             );
+            deepEqual($sliderValue.val(), expectedValue.toString(),
+                "Slider value is correct when dragged to " + perc + "%"
+            );
         });
     });
     test('Click slider strip', function() {
         var sliderHandleLeft, sliderFillWidth,
+            expectedValue,
             ev = $.Event('mousedown'),
+            $sliderContainer = $(".slider-container"),
             $sliderHandle = $(".slider-handle"),
             $sliderFill = $(".slider-fill"),
+            $sliderValue = $(".video-seek"),
+            width = $sliderContainer.outerWidth() - $sliderHandle.outerWidth(),
             testValues = [370, 23, 500, 152, 290, 874];
 
         $.each(testValues, function(i, val){
@@ -80,10 +91,14 @@
             sliderHandleLeft = parseInt($sliderHandle.css('left'), 10);
             sliderFillWidth = parseInt($sliderFill.css('width'), 10);
 
+            expectedValue = parseInt((val / width) * 100, 10);
+
             deepEqual(sliderHandleLeft, val,
                 "Slider handle in correct position when clicked at " + val);
             deepEqual(sliderFillWidth, val,
                 "Slider fill is correct width when clicked at " + val);
+            deepEqual($sliderValue.val(), expectedValue.toString(),
+                "Slider value is correct when when clicked at " + val);
         });
     });
     test('Drag on slider strip', function() {
