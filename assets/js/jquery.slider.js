@@ -126,6 +126,7 @@
 
                     $sliderControl
                         .on('mousedown', function(e) {
+                            $slider.trigger('start');
                             $slider.slider('setPosition', e.offsetX);
                         })
                         .on('mouseup', function(e) {
