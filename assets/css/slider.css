@@ -8,12 +8,12 @@
     padding: 0;
 }
 .slider-strip {
-    height: 10px;
-    margin: 2px;
+    height: 8px;
+    margin: 3px;
 
-    -webkit-border-radius: 5px;
-       -moz-border-radius: 5px;
-            border-radius: 5px;
+    -webkit-border-radius: 4px;
+       -moz-border-radius: 4px;
+            border-radius: 4px;
 
     background: #bbb; /* for non-css3 browsers */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#aaaaaa', endColorstr='#cccccc');
