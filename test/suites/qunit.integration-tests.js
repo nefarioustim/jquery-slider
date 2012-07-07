@@ -29,6 +29,7 @@
     test('Drag slider handle', function() {
         var sliderHandleLeft, expectedHandleLeft,
             sliderFillWidth, expectedFillWidth,
+            expectedValue,
             evDragStart = $.Event('dragstart'),
             evDrag = $.Event('drag'),
             evDragStop = $.Event('dragstop'),

@@ -57,22 +57,35 @@
         });
     });
     test('setPosition success without setting value', function() {
-        var $sliderHandle = $('.slider-handle'),
+        var $sliderContainer = $(".slider-container"),
+            $sliderHandle = $('.slider-handle'),
             $sliderFill = $('.slider-fill'),
-            val = 20;
+            $sliderValue = $(".video-seek"),
+            sliderFillWidth, expectedFillWidth,
+            sliderHandleLeft, expectedHandleLeft,
+            expectedValue,
+            width = $sliderContainer.outerWidth() - $sliderHandle.outerWidth(),
+            position = 531;
 
-        $slider.slider('setPosition', val);
+        $slider.slider('setPosition', position, false);
 
         sliderFillWidth = parseInt($sliderFill.css('width'), 10);
-        expectedFillWidth = val;
+        expectedFillWidth = position;
         sliderHandleLeft = parseInt($sliderHandle.css('left'), 10);
-        expectedHandleLeft = val;
+        expectedHandleLeft = position;
+
+        expectedValue = 0;
 
         deepEqual(sliderHandleLeft, expectedHandleLeft,
-            "Slider handle in correct position when setPosition passed " + val
+            "Slider handle in correct position when setPosition passed " + position
         );
         deepEqual(sliderFillWidth, expectedFillWidth,
-            "Slider fill is correct width when setPosition passed " + val
+            "Slider fill is correct width when setPosition passed " + position
+        );
+        deepEqual($sliderValue.val(), expectedValue.toString(),
+            "Slider value is " +
+            expectedValue.toString() +
+            " (correct) when when clicked at " + position
         );
     });
     test('setPosition success and set value', function() {
@@ -80,10 +93,13 @@
             $sliderHandle = $('.slider-handle'),
             $sliderFill = $('.slider-fill'),
             $sliderValue = $(".video-seek"),
+            sliderFillWidth, expectedFillWidth,
+            sliderHandleLeft, expectedHandleLeft,
+            expectedValue,
             width = $sliderContainer.outerWidth() - $sliderHandle.outerWidth(),
             val = 20;
 
-        $slider.slider('setPosition', val, true);
+        $slider.slider('setPosition', val);
 
         sliderFillWidth = parseInt($sliderFill.css('width'), 10);
         expectedFillWidth = val;
@@ -103,5 +119,17 @@
             expectedValue.toString() +
             " (correct) when when clicked at " + val
         );
+    });
+    test('setValue success', function() {
+        var $sliderContainer = $(".slider-container"),
+            $sliderHandle = $('.slider-handle'),
+            $sliderFill = $('.slider-fill'),
+            $sliderValue = $(".video-seek"),
+            width = $sliderContainer.outerWidth() - $sliderHandle.outerWidth(),
+            val = 20;
+
+        $slider.slider('setValue', val);
+
+        deepEqual(parseInt($sliderValue.val(), 10), val, "Slider value is " + val);
     });
 })();
