@@ -76,7 +76,10 @@
                 defaults = $.extend({
                     'max': 100,
                     'value': 0,
-                    'hideInput': false
+                    'hideInput': false,
+                    'start': function(e){},
+                    'slide': function(e){},
+                    'stop': function(e){}
                 }, options);
 
                 this.each(function(){
@@ -145,6 +148,10 @@
 
                     $sliderValue.val(defaults.value);
                     $slider.slider('setValue', $sliderValue.val());
+
+                    $slider.on('start', defaults.start);
+                    $slider.on('slide', defaults.slide);
+                    $slider.on('stop', defaults.stop);
                 });
 
                 return this;
