@@ -3,12 +3,42 @@
     var $slider,
         sliderClass = '.video-seek';
 
+    //--------------------------------
+
+    module('Unit tests on init function');
+
+    //--------------------------------
+
+    test('Validate markup', function() {
+        $slider = $(sliderClass).slider();
+        // Check all the markup is in the right place
+        deepEqual($(".slider").length, 1,
+            "Slider wrapper exists.");
+        deepEqual($(".slider-container").length, 1,
+            "Slider container exists.");
+        deepEqual($(sliderClass + " + .slider-container").length, 1,
+            "Slider container is directly after the original text box.");
+        deepEqual($(".slider-handle").length, 1,
+            "Slider handle exists.");
+        deepEqual($(".slider-strip").length, 1,
+            "Slider strip exists.");
+        deepEqual($(".slider-fill").length, 1,
+            "Slider fill exists.");
+        deepEqual($(".slider-strip .slider-fill").length, 1,
+            "Slider fill is within the slider strip.");
+    });
+
+    //--------------------------------
+
     module('Unit tests on exposed functions', {
         setup: function() {
             // Setup default slider for the following tests
             $slider = $(sliderClass).slider();
         }
     });
+
+    //--------------------------------
+
     test('getLimitObject success', function() {
         var $sliderContainer = $('.slider-container'),
             $sliderHandle = $('.slider-handle'),
