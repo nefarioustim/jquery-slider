@@ -3,7 +3,7 @@
     var $slider,
         sliderClass = '.video-seek';
 
-    module('Integration: Test created widget success states', {
+    module('Functional: Test created widget success states', {
         setup: function() {
             // Setup default slider for the following tests
             $slider = $(sliderClass).slider();
