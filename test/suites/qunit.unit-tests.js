@@ -187,7 +187,7 @@
         $.each(values, function(i, val) {
             document.getElementById("qunit-fixture").innerHTML = fixtureHTML;
 
-            $slider = $(sliderClass).slider({"max": val});
+            $slider = $(sliderClass).slider({max: val});
 
             var $sliderContainer = $(".slider-container"),
                 $sliderHandle = $(".slider-handle"),
@@ -214,6 +214,49 @@
             parseInt($sliderValue.val(), 10),
             expectedValue,
             "Slider value is " + expectedValue
+        );
+    });
+    test("Multiple 'value' values", function() {
+        var values = [10, 20, 42, 100, 1],
+            fixtureHTML = document.getElementById("qunit-fixture").innerHTML;
+
+        $.each(values, function(i, val) {
+            document.getElementById("qunit-fixture").innerHTML = fixtureHTML;
+
+            $slider = $(sliderClass).slider({value: val});
+
+            var $sliderValue = $(".video-seek"),
+                expectedValue = val;
+
+            deepEqual(
+                parseInt($sliderValue.val(), 10),
+                expectedValue,
+                "Slider value is " + expectedValue
+            );
+        });
+    });
+    test("Default 'hideInput' is false", function() {
+        $slider = $(sliderClass).slider();
+
+        var $sliderValue = $(".video-seek"),
+            expectedValue = 'text';
+
+        deepEqual(
+            $sliderValue.prop('type'),
+            expectedValue,
+            "Slider text input type is " + $sliderValue.prop('type')
+        );
+    });
+    test("Input hidden when 'hideInput' is true", function() {
+        $slider = $(sliderClass).slider({hideInput:true});
+
+        var $sliderValue = $(".video-seek"),
+            expectedValue = 'hidden';
+
+        deepEqual(
+            $sliderValue.prop('type'),
+            expectedValue,
+            "Slider text input type is " + $sliderValue.prop('type')
         );
     });
 })();
